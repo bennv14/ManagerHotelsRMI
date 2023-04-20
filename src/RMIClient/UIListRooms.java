@@ -138,8 +138,9 @@ public class UIListRooms extends JFrame {
     }
     
     public void search() throws RemoteException{
-        String type = TYPE_ROOM[this.typeRoom.getSelectedIndex()];
+        int type = this.typeRoom.getSelectedIndex();
         String price = this.priceRoom.getText();
+        System.out.println(price);
         this.table.setRowsRooms(rmi.getRoomsByTypeAndPrice(type, price));
     }
 

@@ -19,6 +19,7 @@ import model.Room;
  */
 public class DAO {
 
+    private static final String[] TYPE_ROOM = {"tất cả", "thường", "vip"};
     private Connection conn;
     private Statement statement;
 
@@ -90,19 +91,17 @@ public class DAO {
         }
     }
 
-    public ArrayList<Room> getRoomsByPriceAndType(String type, String price) {
+    public ArrayList<Room> getRoomsByPriceAndType(int type, String price) {
 
         String strSearch = "";
 //                + "Where loaiphong = '" + type + "' AND giaphong <= " + price  ;
 
-        if (type != "tất cả" && !price.isBlank()) {
-            strSearch += "Where loaiphong = '" + type + "' AND giaphong <= " + price ;
-        }
-        else if (type != "tất cả"){
-            strSearch += "Where loaiphong = '" + type + "'";
-        }
-        else if(!price.isBlank()){
-            strSearch += "Where giaphong <= " + price ;
+        if (type != 0 && !price.isBlank()) {
+            strSearch += "WHERE loaiphong = '" + TYPE_ROOM[type] + "' AND giaphong <= " + price;
+        } else if (type != 0) {
+            strSearch += "WHERE loaiphong = '" + TYPE_ROOM[type] + "'";
+        } else if (!price.isBlank()) {
+            strSearch += "WHERE giaphong <= " + price;
         }
         String sql = "SELECT * FROM phong " + strSearch;
         System.out.println(sql);
@@ -232,6 +231,8 @@ public class DAO {
     }
 
     public static void main(String[] args) {
-        new DAO().getRoomsByPriceAndType("thường", "1000000");
+        for (Room a : new DAO().getRoomsByPriceAndType(0, "")) {
+            System.out.println(a);
+        };
     }
 }

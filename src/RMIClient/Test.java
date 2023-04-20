@@ -14,7 +14,7 @@ import model.Hotel;
  */
 public class Test {
     public static void main(String[] args) {
-        String type = "thường";
+        String type = "tất cả";
         String price = "";
         String strSearch="";
         if (type != "tất cả" && !price.isBlank()) {

@@ -42,7 +42,7 @@ public class RMIServer extends UnicastRemoteObject implements RMIInterface{
     }
 
     @Override
-    public ArrayList<Room> getRoomsByTypeAndPrice(String type, String price) throws RemoteException {
+    public ArrayList<Room> getRoomsByTypeAndPrice(int type, String price) throws RemoteException {
         return this.dao.getRoomsByPriceAndType(type, price);
     }
 

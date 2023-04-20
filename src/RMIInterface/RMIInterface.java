@@ -17,7 +17,7 @@ import model.Room;
  */
 public interface RMIInterface extends Remote{
     public ArrayList<Room> getAllRooms() throws RemoteException;
-    public ArrayList<Room> getRoomsByTypeAndPrice(String type, String price) throws RemoteException;
+    public ArrayList<Room> getRoomsByTypeAndPrice(int type, String price) throws RemoteException;
     public ArrayList<Hotel> getAllHotels() throws RemoteException;
     public void updateRoom (Room room) throws RemoteException;
     public void updateHotel (Hotel hotel) throws RemoteException;

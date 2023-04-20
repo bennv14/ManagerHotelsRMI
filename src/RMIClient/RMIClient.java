@@ -27,7 +27,7 @@ public class RMIClient {
         Registry registry = LocateRegistry.getRegistry("localhost", 1099);
         RMIInterface rmiServer = (RMIInterface) registry.lookup("rmi");
         rmiServer.deleteHotel("KS06");
-        ArrayList<Room> a = rmiServer.getRoomsByTypeAndPrice("vip", "");
+        ArrayList<Room> a = rmiServer.getRoomsByTypeAndPrice(2, "");
 //        ArrayList<Hotel> hotels = rmiServer.getAllHotels();
 //        for(Hotel hotel : hotels){
 //            System.out.println(hotel);
