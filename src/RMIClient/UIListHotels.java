@@ -36,9 +36,7 @@ public class UIListHotels extends JFrame {
 
     public static final String[] COLUMN = {"ID", "Tên", "Số sao", "Mô tả"};
     private RMIInterface rmi;
-    private DefaultTableModel model;
     private Table table;
-    private AddElement addHotels;
 
     public UIListHotels() throws RemoteException, NotBoundException {
         super();
@@ -59,7 +57,13 @@ public class UIListHotels extends JFrame {
                     int selectedRow = table.getSelectedRow();
                     ArrayList<String> data = table.getValuesAtRow(selectedRow);
                     System.out.println(data);
-                    UpdateProperties update = new UpdateProperties(COLUMN, data,rmi);
+                    try {
+                        new UIListRoomsOfHotel(data);
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(UIListHotels.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (NotBoundException ex) {
+                        Logger.getLogger(UIListHotels.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     
                 }
             }
@@ -78,7 +82,7 @@ public class UIListHotels extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    new UIListRooms(0, "");
+                    new UIListRooms();
                     dispose();
                 } catch (Exception ex) {
                     System.out.println("lỗi gọi UIListRooms: " + ex);

@@ -59,6 +59,9 @@ public class Table extends JScrollPane {
     
     public void setRowsRooms(ArrayList<Room> values ){
         this.model.setRowCount(0);
+        if(values.size() == 0){
+            return;
+        }
         for(Room value : values){
             this.model.addRow(value.toArray());
         }
@@ -67,6 +70,9 @@ public class Table extends JScrollPane {
     
     public void setRowsHotels(ArrayList<Hotel> values ){
         this.model.setRowCount(0);
+        if(values.size() == 0){
+            return;
+        }
         for(Hotel value : values){
             this.model.addRow(value.toArray());
         }

@@ -8,23 +8,16 @@ package RMIClient;
 import RMIInterface.RMIInterface;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Label;
 import java.awt.Panel;
-import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -37,19 +30,18 @@ import model.Room;
  *
  * @author ben
  */
-public class UpdateProperties extends JDialog {
+public class UpdateRoomOfHotel extends JFrame {
 
     private ArrayList<JTextField> inpText;
     private String[] properties;
     private RMIInterface rmi;
+    private ArrayList<String> hotelData;
 
-    public UpdateProperties(String[] properties, ArrayList<String> data, RMIInterface rmi) {
+    public UpdateRoomOfHotel(String[] properties, ArrayList<String> data, RMIInterface rmi, ArrayList<String> hotelData) {
 
-        if (properties.length == 4) {
-            this.setTitle("Chỉnh sửa khách sạn");
-        } else {
-            this.setTitle("Chỉnh sửa phòng");
-        }
+        this.setTitle("Chỉnh sửa phòng");
+
+        this.hotelData = hotelData;
         this.properties = properties;
         this.rmi = rmi;
         JPanel panel = new JPanel(new BorderLayout());
@@ -125,46 +117,28 @@ public class UpdateProperties extends JDialog {
     }
 
     public void save() throws RemoteException, NotBoundException {
-        if (this.properties.length == 4) {
-            this.rmi.updateHotel(new Hotel(
-                    inpText.get(0).getText(),
-                    inpText.get(1).getText(),
-                    Integer.parseInt(inpText.get(2).getText()),
-                    inpText.get(3).getText()
-            ));
 
-            new UIListHotels();
-        } else {
-            this.rmi.updateRoom(new Room(
-                    inpText.get(0).getText(),
-                    inpText.get(1).getText(),
-                    inpText.get(2).getText(),
-                    Integer.parseInt(inpText.get(3).getText()),
-                    inpText.get(4).getText()));
-            new UIListRooms();
-        }
+        this.rmi.updateRoom(new Room(
+                inpText.get(0).getText(),
+                inpText.get(1).getText(),
+                inpText.get(2).getText(),
+                Integer.parseInt(inpText.get(3).getText()),
+                inpText.get(4).getText()));
+        new UIListRoomsOfHotel(this.hotelData);
+
         this.dispose();
     }
 
     public void delete() throws RemoteException, NotBoundException {
-        if (this.properties.length == 4) {
-            this.rmi.deleteHotel(this.inpText.get(0).getText());
-            new UIListHotels();
-        } else {
-            this.rmi.deleteRoom(this.inpText.get(0).getText());
-            new UIListRooms();
-        }
 
+        this.rmi.deleteRoom(this.inpText.get(0).getText());
+        new UIListRoomsOfHotel(this.hotelData);
         this.dispose();
     }
 
     public void cancel() throws RemoteException, NotBoundException {
-        if (this.properties.length == 4) {
-            new UIListHotels();
-        } else {
-            new UIListRooms();
-        }
 
+        new UIListRoomsOfHotel(this.hotelData);
         this.dispose();
     }
 

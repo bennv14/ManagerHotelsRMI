@@ -127,6 +127,43 @@ public class DAO {
             return null;
         }
     }
+    
+        public ArrayList<Room> getRoomsByPriceAndTypeAndIdKhachSan(int type, String price, String idKhachSan) {
+
+        String strSearch = "";
+//                + "Where loaiphong = '" + type + "' AND giaphong <= " + price  ;
+
+        if (type != 0 && !price.isBlank()) {
+            strSearch += "WHERE loaiphong = '" + TYPE_ROOM[type] + "' AND giaphong <= " + price  + " AND idKhachSan = '" + idKhachSan + "'";
+        } else if (type != 0) {
+            strSearch += "WHERE loaiphong = '" + TYPE_ROOM[type] + "'  AND idKhachSan = '" + idKhachSan + "'";
+        } else if (!price.isBlank()) {
+            strSearch += "WHERE giaphong <= " + price + " AND idKhachSan = '" + idKhachSan + "'";;
+        }
+        String sql = "SELECT * FROM phong " + strSearch;
+        System.out.println(sql);
+        ResultSet result = null;
+
+        try {
+            result = this.statement.executeQuery(sql);
+            ArrayList<Room> hotelss = new ArrayList<>();
+
+            while (result.next()) {
+                Room hotels = new Room(
+                        result.getString("id"),
+                        result.getString("sophong"),
+                        result.getString("loaiphong"),
+                        result.getInt("giaphong"),
+                        result.getString("idKhachSan"));
+                hotelss.add(hotels);
+            }
+
+            return hotelss;
+
+        } catch (SQLException e) {
+            return null;
+        }
+    }
 
     public ArrayList<Hotel> getAllHotels() {
         String sql = "SELECT * FROM khachsan";

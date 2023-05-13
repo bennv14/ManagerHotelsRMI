@@ -7,12 +7,14 @@ package model;
 
 import java.io.Serializable;
 import java.rmi.Remote;
+import java.util.ArrayList;
 
 /**
  *
  * @author ben
  */
 public class Hotel implements Serializable{
+    
     private String id;
     private String name;
     private int startRating;
@@ -23,6 +25,13 @@ public class Hotel implements Serializable{
         this.name = name;
         this.startRating = startRating;
         this.description = description;
+    }
+    
+    public Hotel(ArrayList<String> data) {
+        this.id = data.get(0);
+        this.name = data.get(1);
+        this.startRating = Integer.parseInt(data.get(2));
+        this.description = data.get(3);
     }
 
     public String getId() {

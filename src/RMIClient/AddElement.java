@@ -116,7 +116,7 @@ public class AddElement extends JFrame {
                     Integer.parseInt(inpText.get(3).getText()),
                     inpText.get(4).getText()));
             System.out.println();
-            new UIListRooms(0, "");
+            new UIListRooms();
         }
         
     }
@@ -125,9 +125,8 @@ public class AddElement extends JFrame {
         if (this.properties.length == 4) {
             new UIListHotels();
         } else {
-            new UIListRooms(0, "");
+            new UIListRooms();
         }
-
         this.dispose();
     }
 

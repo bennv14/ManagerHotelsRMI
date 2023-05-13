@@ -6,7 +6,6 @@
 package RMIServer;
 
 import DAO.DAO;
-import RMIClient.RMIClient;
 import RMIInterface.RMIInterface;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -34,6 +33,10 @@ public class RMIServer extends UnicastRemoteObject implements RMIInterface{
     @Override
     public ArrayList<Room> getAllRooms() throws RemoteException {
         return this.dao.getAllRooms();
+    }
+    
+    public ArrayList<Room> getRoomsOfHotel(String id) throws RemoteException{
+        return this.dao.getRoomsOfHotel(id);
     }
     
     @Override
@@ -75,5 +78,11 @@ public class RMIServer extends UnicastRemoteObject implements RMIInterface{
     public void addHotel(Hotel hotel) throws RemoteException {
         this.dao.addHotel(hotel);
     }
+
+    @Override
+    public ArrayList<Room> getRoomsByTypeAndPriceAndIdKhachSan(int type, String price, String idKhachSan) throws RemoteException {
+        return this.dao.getRoomsByPriceAndTypeAndIdKhachSan(type, price, idKhachSan);
+    }
+
     
 }

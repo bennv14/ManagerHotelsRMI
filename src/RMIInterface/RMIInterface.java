@@ -17,7 +17,9 @@ import model.Room;
  */
 public interface RMIInterface extends Remote{
     public ArrayList<Room> getAllRooms() throws RemoteException;
+    public ArrayList<Room> getRoomsOfHotel(String id)throws RemoteException;
     public ArrayList<Room> getRoomsByTypeAndPrice(int type, String price) throws RemoteException;
+    public ArrayList<Room> getRoomsByTypeAndPriceAndIdKhachSan(int type, String price, String idKhachSan) throws RemoteException;
     public ArrayList<Hotel> getAllHotels() throws RemoteException;
     public void updateRoom (Room room) throws RemoteException;
     public void updateHotel (Hotel hotel) throws RemoteException;
@@ -25,4 +27,5 @@ public interface RMIInterface extends Remote{
     public void deleteHotel(String id) throws RemoteException;
     public void addRoom(Room room) throws RemoteException;
     public void addHotel(Hotel hotel) throws RemoteException;
+
 }
